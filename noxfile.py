@@ -37,7 +37,7 @@ def set_environment_variables(env_dict, session):
         session.env[key] = value
 
 
-@nox.session(name="pybamm-requires")
+@nox.session(name="pybamm-requires", venv_backend="venv")
 def run_pybamm_requires(session):
     """Download, compile, and install the build-time requirements for Linux and macOS. Supports --install-dir for custom installation paths and --force to force installation."""
     set_environment_variables(PYBAMM_ENV, session=session)
