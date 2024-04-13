@@ -17,6 +17,7 @@ homedir = os.getenv("HOME")
 PYBAMM_ENV = {
     "SUNDIALS_INST": f"{homedir}/.local",
     "LD_LIBRARY_PATH": f"{homedir}/.local/lib",
+    "PYTHONIOENCODING": "utf-8",
 }
 VENV_DIR = Path("./venv").resolve()
 
@@ -61,13 +62,7 @@ def run_coverage(session):
     """Run the coverage tests and generate an XML report."""
     set_environment_variables(PYBAMM_ENV, session=session)
     session.install("coverage", silent=False)
-    if sys.platform != "win32":
-        session.install("-e", ".[all,dev,jax]", silent=False)
-    else:
-        if sys.version_info < (3, 9):
-            session.install("-e", ".[all,dev]", silent=False)
-        else:
-            session.install("-e", ".[all,dev,jax]", silent=False)
+    session.install("-e", ".[all,dev,jax]", silent=False)
     session.run("pytest", "--cov=pybamm", "--cov-report=xml", "tests/unit")
 
 
@@ -75,13 +70,7 @@ def run_coverage(session):
 def run_integration(session):
     """Run the integration tests."""
     set_environment_variables(PYBAMM_ENV, session=session)
-    if sys.platform != "win32":
-        session.install("-e", ".[all,dev,jax]", silent=False)
-    else:
-        if sys.version_info < (3, 9):
-            session.install("-e", ".[all,dev]", silent=False)
-        else:
-            session.install("-e", ".[all,dev,jax]", silent=False)
+    session.install("-e", ".[all,dev,jax]", silent=False)
     session.run("python", "run-tests.py", "--integration")
 
 
@@ -96,13 +85,7 @@ def run_doctests(session):
 def run_unit(session):
     """Run the unit tests."""
     set_environment_variables(PYBAMM_ENV, session=session)
-    if sys.platform != "win32":
-        session.install("-e", ".[all,dev,jax]", silent=False)
-    else:
-        if sys.version_info < (3, 9):
-            session.install("-e", ".[all,dev]", silent=False)
-        else:
-            session.install("-e", ".[all,dev,jax]", silent=False)
+    session.install("-e", ".[all,dev,jax]", silent=False)
     session.run("python", "run-tests.py", "--unit")
 
 
@@ -138,50 +121,22 @@ def set_dev(session):
     # https://bitbucket.org/pybtex-devs/pybtex/issues/169/replace-pkg_resources-with
     # is fixed
     session.run(python, "-m", "pip", "install", "setuptools", external=True)
-    if sys.platform == "linux":
-        session.run(
-            python,
-            "-m",
-            "pip",
-            "install",
-            "-e",
-            ".[all,dev,jax]",
-            external=True,
-        )
-    else:
-        if sys.version_info < (3, 9):
-            session.run(
-                python,
-                "-m",
-                "pip",
-                "install",
-                "-e",
-                ".[all,dev]",
-                external=True,
-            )
-        else:
-            session.run(
-                python,
-                "-m",
-                "pip",
-                "install",
-                "-e",
-                ".[all,dev,jax]",
-                external=True,
-            )
+    session.run(
+        python,
+        "-m",
+        "pip",
+        "install",
+        "-e",
+        ".[all,dev,jax]",
+        external=True,
+    )
 
 
 @nox.session(name="tests")
 def run_tests(session):
     """Run the unit tests and integration tests sequentially."""
     set_environment_variables(PYBAMM_ENV, session=session)
-    if sys.platform != "win32":
-        session.install("-e", ".[all,dev,jax]", silent=False)
-    else:
-        if sys.version_info < (3, 9):
-            session.install("-e", ".[all,dev]", silent=False)
-        else:
-            session.install("-e", ".[all,dev,jax]", silent=False)
+    session.install("-e", ".[all,dev,jax]", silent=False)
     session.run("python", "run-tests.py", "--all")
 
 
