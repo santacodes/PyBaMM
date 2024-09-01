@@ -169,8 +169,8 @@ from .solvers.scipy_solver import ScipySolver
 from .solvers.jax_solver import JaxSolver
 from .solvers.jax_bdf_solver import jax_bdf_integrate
 
-from .solvers.idaklu_jax import IDAKLUJax
-from .solvers.idaklu_solver import IDAKLUSolver, has_idaklu, has_iree
+from pybammsolvers import IDAKLUJax
+from pybammsolvers import IDAKLUSolver, has_idaklu, has_iree
 
 # Experiments
 from .experiment.experiment import Experiment
