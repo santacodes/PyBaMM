@@ -1,14 +1,6 @@
 [build-system]
-requires = [
-    "setuptools>=64",
-    "wheel",
-    # On Windows, use the CasADi vcpkg registry and CMake bundled from MSVC
-    "casadi>=3.6.5; platform_system!='Windows'",
-    # Note: the version of CasADi as a build-time dependency should be matched
-    # cross platforms, so updates to its minimum version here should be accompanied
-    # by a version bump in https://github.com/pybamm-team/casadi-vcpkg-registry.
-]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
 
 [project]
 name = "pybamm"
@@ -122,11 +114,7 @@ jax = [
     "jax==0.4.27",
     "jaxlib==0.4.27",
 ]
-# For MLIR expression evaluation (IDAKLU Solver)
-iree = [
-    # must be pip installed with --find-links=https://iree.dev/pip-release-links.html
-    "iree-compiler==20240507.886",  # see IREE compatibility notes in noxfile.py
-]
+
 # Contains all optional dependencies, except for jax, iree, and dev dependencies
 all = [
     "scikit-fem>=8.1.0",
