@@ -169,8 +169,7 @@ from .solvers.scipy_solver import ScipySolver
 from .solvers.jax_solver import JaxSolver
 from .solvers.jax_bdf_solver import jax_bdf_integrate
 
-from pybammsolvers import IDAKLUJax
-from pybammsolvers import IDAKLUSolver, has_idaklu, has_iree
+from pybammsolvers import IDAKLUSolver, IDAKLUJax,  has_idaklu, has_iree
 
 # Experiments
 from .experiment.experiment import Experiment
@@ -224,4 +223,5 @@ __all__ = [
     "util",
     "version",
     "pybamm_data",
+    "pybammsolvers",
 ]
